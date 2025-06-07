@@ -1,0 +1,14 @@
+{
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "[java]": {
+    "editor.tabSize": 4
+  },
+  "[makefile]": {
+    "editor.tabSize": 4
+  },
+  "[vue]": {
+    "editor.tabSize": 2
+  },
+  "json.schemaDownload.enable": true,
+}
