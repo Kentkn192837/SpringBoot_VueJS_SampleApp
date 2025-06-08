@@ -1,6 +1,5 @@
-yarn grobal add @vue/cli
-vue create my-project
-cd my-project
+yarn global add @vue/cli
+vue create .
 vue add @vue/typescript
 yarn add vue-router
 yarn add axios
