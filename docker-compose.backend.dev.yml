@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: dockerfiles/backend/Dockerfile
+    container_name: backend
+    ports:
+      - "8080:8080"
+    restart: always
+    tty: true
+    volumes:
+      - ./backend:/app/backend
+    depends_on:
+      - oracle-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@oracle-db:1521:xe
+      SPRING_DATASOURCE_USERNAME: your_username
+      SPRING_DATASOURCE_PASSWORD: your_password
+      MYBATIS_CONFIG_LOCATION: classpath:mybatis-config.xml # MyBatisの設定ファイル
+      FLYWAY_ENABLED: true # Flywayを有効化
+      FLYWAY_LOCATIONS: classpath:db/migration # Flywayのマイグレーションファイルの場所
+
+  oracle-db:
+    image: gvenzl/oracle-free:23c
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    environment:
+      ORACLE_PASSWORD: your_password
+      ORACLE_DATABASE: XEPDB1
+
+  swagger-editor:
+    image: swaggerapi/swagger-editor
+    container_name: "swagger-editor"
+    ports:
+      - "8001:8080"
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: "swagger-ui"
+    ports:
+      - "8002:8080"
+    volumes:
+      - ./api/openapi.yaml:/openapi.yaml
+    environment:
+      SWAGGER_JSON: /openapi.yaml
+
+  swagger-api:
+    image: stoplight/prism:3
+    container_name: "swagger-api"
+    ports:
+      - "8003:4010"
+    command: mock -h 0.0.0.0 /openapi.yaml
+    volumes:
+      - ./api/openapi.yaml:/openapi.yaml
