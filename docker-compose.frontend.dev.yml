@@ -12,6 +12,6 @@ services:
     restart: always
     tty: true
     volumes:
-      - ./frontend/my-project:/app/frontend/my-project
+      - ./:/app
     environment:
       - WATCHPACK_POLLING=true
