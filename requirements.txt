@@ -1,0 +1,12 @@
+yarn grobal add @vue/cli
+vue create my-project
+cd my-project
+vue add @vue/typescript
+yarn add vue-router
+yarn add axios
+yarn add @vue/composition-api
+yarn add prettier --dev --exact
+yarn add eslint --dev --exact
+yarn add -D hygen
+yarn add playwright install-deps --dev
+yarn create playwright
