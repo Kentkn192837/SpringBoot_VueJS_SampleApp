@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: dockerfiles/frontend/Dockerfile
+    ports:
+      - "3000:3000"
+      - "9323:9323"
+    restart: always
+    tty: true
+    volumes:
+      - ./frontend/my-project:/app/frontend/my-project
+    environment:
+      - WATCHPACK_POLLING=true
